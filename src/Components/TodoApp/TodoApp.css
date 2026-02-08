@@ -1,0 +1,24 @@
+.todoContainer {
+  width: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+
+  gap: 20px;
+}
+
+.todoContainer h1 {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  font-size: 2rem;
+  color: #333;
+  letter-spacing: 1px;
+}
