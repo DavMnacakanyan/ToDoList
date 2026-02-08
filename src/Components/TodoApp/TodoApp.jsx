@@ -1,13 +1,29 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TodoForm } from "../TodoForm/TodoForm";
 import { TodoList } from "../TodoList/TodoList";
 import "./TodoApp.css";
-import "../../App/App.css";
 
 export const TodoApp = ({ view }) => {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [deletedTasks, setDeletedTasks] = useState([]);
+
+  useEffect(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const savedCompletedTasks =
+      JSON.parse(localStorage.getItem("completedTasks")) || [];
+    const savedDeletedTasks =
+      JSON.parse(localStorage.getItem("deletedTasks")) || [];
+    setTasks(savedTasks);
+    setCompletedTasks(savedCompletedTasks);
+    setDeletedTasks(savedDeletedTasks);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+    localStorage.setItem("deletedTasks", JSON.stringify(deletedTasks));
+  }, [tasks, completedTasks, deletedTasks]);
 
   const addTask = (text) => {
     const newTask = {
@@ -52,14 +68,34 @@ export const TodoApp = ({ view }) => {
   else if (view === "completed") displayTasks = completedTasks;
   else if (view === "deleted") displayTasks = deletedTasks;
 
+  const totalTasks = tasks.length + completedTasks.length;
+  const completedPercentage =
+    totalTasks === 0
+      ? 0
+      : Math.round((completedTasks.length / totalTasks) * 100);
+
   return (
-    <div className="todoContainer">
+    <div className="todo-container">
       <h1>
         {view === "todo" && "My Tasks"}
         {view === "completed" && "Completed Tasks"}
         {view === "deleted" && "Deleted Tasks"}
       </h1>
+
       {view === "todo" && <TodoForm addTask={addTask} />}
+
+      {view !== "deleted" && (
+        <div className="progress-bar-container">
+          <div className="progress-bar-background">
+            <div
+              className="progress-bar-fill"
+              style={{ width: `${completedPercentage}%` }}
+            ></div>
+          </div>
+          <p>{completedPercentage}% Completed</p>
+        </div>
+      )}
+
       <TodoList
         tasks={displayTasks}
         deleteTask={deleteTask}

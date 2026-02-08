@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import completeIcon from "../../Images/complete.png";
 import deleteIcon from "../../Images/delete.png";
 import editIcon from "../../Images/edit.png";
@@ -31,7 +31,7 @@ export const TodoItem = ({
 
   let content = editing ? (
     <input
-      className="inputner"
+      className="todo-input"
       value={text}
       onChange={(e) => setText(e.target.value)}
       onBlur={finishEdit}
@@ -45,9 +45,9 @@ export const TodoItem = ({
   );
 
   return (
-    <li className={task.completed ? "todo-item completed" : "todo-item"}>
+    <li className={`todo-item ${task.completed ? "completed" : ""}`}>
       {content}
-      <div className="actions">
+      <div className="todo-actions">
         {view === "todo" && (
           <>
             <button onClick={() => toggleComplete(task.id)}>
@@ -58,7 +58,6 @@ export const TodoItem = ({
             </button>
           </>
         )}
-
         <button onClick={() => deleteTask(task.id)}>
           <img
             src={deleteIcon}

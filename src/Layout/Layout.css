@@ -1,0 +1,33 @@
+.layout-container {
+  width: 95%;
+  max-width: 1600px;
+  margin: 50px auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background: linear-gradient(135deg, #ff3b30, #cf524b);
+  border-radius: 20px;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+}
+
+.layout-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 1200px) {
+  .layout-container {
+    width: 90%;
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-container {
+    width: 95%;
+    padding: 20px 10px;
+    border-radius: 16px;
+  }
+}
